@@ -64,6 +64,25 @@ app.UseHttpsRedirection();
 //FindMyCleaner - CORS
 app.UseCors("AllowFindMyCleanerWeb");
 
+// Public portfolio demo: reject writes before controllers or database access.
+app.Use(async (context, next) =>
+{
+    if (!HttpMethods.IsGet(context.Request.Method) &&
+        !HttpMethods.IsHead(context.Request.Method) &&
+        !HttpMethods.IsOptions(context.Request.Method))
+    {
+        context.Response.StatusCode = StatusCodes.Status405MethodNotAllowed;
+        context.Response.Headers.Allow = "GET, HEAD, OPTIONS";
+        await context.Response.WriteAsJsonAsync(new { message = "This demo is read-only." });
+        return;
+    }
+
+    await next();
+});
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseAuthorization();
 
 app.MapControllers();
