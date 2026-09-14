@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find My Cleaner | Cleaning Services</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #193b34; background: #f5f7f4; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { background: #fff; border-bottom: 1px solid #dde5df; padding: 22px max(24px, calc((100vw - 1440px) / 2)); font-weight: 750; font-size: 20px; }
+    header span { color: #668077; font-size: 13px; font-weight: 400; margin-left: 16px; }
+    main { max-width: 1488px; margin: auto; padding: 52px 24px; }
+    .intro { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .eyebrow { color: #537366; font-size: 12px; letter-spacing: 2px; font-weight: 700; }
+    h1 { font-size: clamp(28px, 4vw, 40px); margin: 12px 0; }
+    p { color: #62756d; line-height: 1.7; }
+    button { background: #225d48; border: 0; border-radius: 9px; padding: 13px 20px; color: white; font: inherit; cursor: pointer; white-space: nowrap; }
+    button:hover { background: #174632; }
+    button:disabled { cursor: wait; opacity: .6; }
+    button:focus-visible, .table-wrap:focus-visible { outline: 3px solid #c39738; outline-offset: 4px; }
+    .panel { background: white; border: 1px solid #dde5df; border-radius: 14px; overflow: hidden; margin-top: 28px; }
+    .toolbar { display: flex; justify-content: space-between; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #e6ece7; }
+    #updated { color: #6a7c73; font-size: 13px; }
+    #status { padding: 28px 24px; margin: 0; }
+    #status.error { color: #a03227; background: #fff5f2; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+    caption { text-align: left; padding: 12px 24px; color: #6a7c73; font-size: 13px; }
+    th { background: #f8faf7; color: #5c7166; font-size: 12px; white-space: nowrap; }
+    th, td { padding: 18px 20px; border-bottom: 1px solid #edf0ec; vertical-align: top; }
+    td { min-width: 120px; line-height: 1.6; }
+    td:first-child { min-width: 180px; font-weight: 650; }
+    tbody tr:hover { background: #fbfcf9; }
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; background: #e6f3eb; color: #256143; white-space: nowrap; font-size: 12px; }
+    .badge.off { background: #f0f1ee; color: #70766e; }
+    .id { font-family: monospace; font-size: 12px; color: #7b847e; }
+    footer { margin-top: 18px; color: #738077; font-size: 12px; }
+    [hidden] { display: none !important; }
+    @media(max-width: 600px) { main { padding: 30px 16px; } header { padding: 20px 16px; } header span { display: none; } .intro { align-items: flex-start; flex-direction: column; } .toolbar { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header>Find My Cleaner <span>Making it easier to find a cleaner</span></header>
+  <main>
+    <div class="intro">
+      <div><div class="eyebrow">CLEANING SERVICES</div><h1>Explore cleaning services</h1><p>View providers, prices and available service times.</p></div>
+      <button id="reload" type="button">Reload</button>
+    </div>
+    <section class="panel" aria-label="Cleaning services list" aria-busy="true" id="panel">
+      <div class="toolbar"><strong id="count">All services</strong><span id="updated"></span></div>
+      <p id="status" role="status" aria-live="polite">Loading cleaning services…</p>
+      <div class="table-wrap" id="results" tabindex="0" role="region" aria-label="All service data, scroll horizontally to view more" hidden>
+        <table>
+          <caption>Scroll horizontally to view the complete service details.</caption>
+          <thead><tr><th scope="col">Provider</th><th scope="col">Service name</th><th scope="col">Service type</th><th scope="col">Suburb</th><th scope="col">Hourly rate from</th><th scope="col">Minimum duration</th><th scope="col">Available</th><th scope="col">Night shift</th><th scope="col">Available days</th><th scope="col">Keywords</th><th scope="col">Created</th><th scope="col">Service ID</th></tr></thead>
+          <tbody id="services"></tbody>
+        </table>
+      </div>
+    </section>
+    <footer>Prices are shown in Australian dollars (AUD).</footer>
+  </main>
+  <script src="js/services-render.js" defer></script>
+</body>
+</html>
