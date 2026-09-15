@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFindMyCleanerWeb", policy =>
     {
-        policy.WithOrigins("https://localhost:7075")
+        policy.WithOrigins("https://localhost:7075", "https://findmycleaner-demo.onrender.com")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
